@@ -70,6 +70,7 @@ class SwipeLayout @JvmOverloads constructor(
 
     // XXX: Should be independent of swipeFlags, and expose it?
     internal val swipeEnable get() = (swipeFlags and (LEFT or RIGHT)) != 0
+    var disable = false
 
     /**
      * swipeFlags is used to control the swipe direction. If you want to disable the swipe action,
@@ -300,6 +301,7 @@ class SwipeLayout @JvmOverloads constructor(
     }
 
     private fun processTouchEvent(ev: MotionEvent) {
+        if (disable) return
         when (ev.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 downX = ev.x.toInt()
